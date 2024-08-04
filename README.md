@@ -1,2 +1,2 @@
-# Context-Enhanced LLM Response Retrieval
-WIP for a tool that leverages Confluence documentation and Semantic Searches to provide RAG-enhanced LLM responses.
+# Context-Enhanced LLM Retrieval for Business-Related Queries
+WIP for a tool that leverages Confluence documentation, Semantic Search, and RAG to improve LLM responses for confidential queries. 
