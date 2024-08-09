@@ -1,0 +1,4 @@
+transformers
+torch
+pinecone-client
+requests
