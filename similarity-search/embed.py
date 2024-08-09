@@ -3,8 +3,8 @@ import torch
 
 
 def embed_text(text):
-    tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
-    model = AutoModel.from_pretrained("distilbert-base-uncased")
+    tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+    model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
 
     inputs = tokenizer(text, return_tensors="pt", truncation = True, padding= True)
 
