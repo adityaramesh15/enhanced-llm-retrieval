@@ -3,3 +3,4 @@ torch
 pinecone-client
 requests
 typing-extensions==4.5.0
+python-dotenv
