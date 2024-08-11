@@ -16,6 +16,7 @@ class ConfluenceAPI:
         if not all([self.confleunce_api_key, self.confluence_space_name, self.username, self.api_url]):
             raise EnvironmentError("Missing required environment variables for Confluence API.")
 
+
     def get_space_id(self):
         url = f"{self.api_url}/spaces"
         while url:
@@ -26,6 +27,7 @@ class ConfluenceAPI:
                     return space['id']
             url = data['_links'].get('next')  
         return None
+
 
     def get_page_ids(self, space_id):
         url = f"{self.api_url}/spaces/{space_id}/pages"
@@ -39,6 +41,7 @@ class ConfluenceAPI:
             url = data['_links'].get('next')  
         return page_ids
 
+
     def get_content(self, page_id):
         url = f"{self.api_url}/pages/{page_id}"
         params = {'body-format': 'view', 'include-version': 'True'}
@@ -46,6 +49,7 @@ class ConfluenceAPI:
         data = response.json()
 
         return data['body']['view']['value']
+    
     
 if __name__ == "__main__":
     confluence_api = ConfluenceAPI()
