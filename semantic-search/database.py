@@ -13,12 +13,11 @@ class Database:
 
 
     def startup(self):       
-        index_name = 'enhanced-llm-retrieval'
-        if index_name not in self.pc.list_indexes().names():
+        if self.index_name not in self.pc.list_indexes().names():
             self.pc.create_index(
-                name=index_name, dimensions=768, metric='cosine',
+                name=self.index_name, dimensions=768, metric='cosine',
                 spec=ServerlessSpec(cloud="aws", region="us-east-1"))
-        self.index = self.pc.Index(index_name)
+        self.index = self.pc.Index(self.index_name)
     
 
     def clear(self):
