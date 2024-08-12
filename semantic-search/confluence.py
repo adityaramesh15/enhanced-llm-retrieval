@@ -1,58 +1,37 @@
-import os
-import requests
-from requests.auth import HTTPBasicAuth
-from dotenv import load_dotenv
+from utils import load_env_variable, make_request, convert_utc_to_local, initialize_auth
 
 class ConfluenceAPI:
     def __init__(self):
-        load_dotenv()
-        self.confluence_api_key = os.getenv("CONFLUENCE_API_KEY")
-        self.confluence_space_name = os.getenv("CONFLUENCE_SPACE_NAME")
-        self.username = os.getenv("CONFLUENCE_USERNAME")
-        self.api_url = os.getenv("CONFLUENCE_URL")
-        
-        self.auth = HTTPBasicAuth(self.username, self.confluence_api_key)
-
-        if not all([self.confluence_api_key, self.confluence_space_name, self.username, self.api_url]):
-            raise EnvironmentError("Missing required environment variables for Confluence API.")
-
+        self.api_url = load_env_variable("CONFLUENCE_URL")
+        self.space_name = load_env_variable("CONFLUENCE_SPACE_NAME")
+        self.auth = initialize_auth()
 
     def get_space_id(self):
         url = f"{self.api_url}/spaces"
         while url:
-            response = requests.get(url, auth=self.auth, timeout=10)
-            data = response.json()  
+            data = make_request(url, self.auth)
             for space in data['results']:
-                if space['name'] == self.confluence_space_name:
+                if space['name'] == self.space_name:
                     return space['id']
-            url = data['_links'].get('next')  
+            url = data['_links'].get('next')
         return None
-
 
     def get_page_ids(self, space_id):
         url = f"{self.api_url}/spaces/{space_id}/pages"
         page_ids = {}
         while url:
-            response = requests.get(url, auth=self.auth)
-            data = response.json()  
+            data = make_request(url, self.auth)
             for page in data['results']:
-                title = page['title']
-                page_ids[title] = page['id']
-            url = data['_links'].get('next')  
+                page_ids[page['title']] = page['id']
+            url = data['_links'].get('next')
         return page_ids
-
 
     def get_content(self, page_id):
         url = f"{self.api_url}/pages/{page_id}"
-        params = {'body-format': 'view', 'include-version': 'True'}
-        response = requests.get(url, auth=self.auth, params=params)
-        data = response.json()
-
+        data = make_request(url, self.auth, params={'body-format': 'view'})
         return data['body']['view']['value']
-    
-    
-if __name__ == "__main__":
-    confluence_api = ConfluenceAPI()
-    # confluence_api.upsert_pages(space_name = 'enhanced-llm-retrieval')
 
-
+    def get_time(self, page_id):
+        url = f"{self.api_url}/pages/{page_id}"
+        data = make_request(url, self.auth, params={'include-version': 'True'})
+        return convert_utc_to_local(data['version']['createdAt'])
