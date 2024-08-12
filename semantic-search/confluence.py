@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 class ConfluenceAPI:
     def __init__(self):
         load_dotenv()
-        self.confleunce_api_key = os.getenv("CONFLUENCE_API_KEY")
+        self.confluence_api_key = os.getenv("CONFLUENCE_API_KEY")
         self.confluence_space_name = os.getenv("CONFLUENCE_SPACE_NAME")
         self.username = os.getenv("CONFLUENCE_USERNAME")
         self.api_url = os.getenv("CONFLUENCE_URL")
         
-        self.auth = HTTPBasicAuth(self.username, self.confleunce_api_key)
+        self.auth = HTTPBasicAuth(self.username, self.confluence_api_key)
 
-        if not all([self.confleunce_api_key, self.confluence_space_name, self.username, self.api_url]):
+        if not all([self.confluence_api_key, self.confluence_space_name, self.username, self.api_url]):
             raise EnvironmentError("Missing required environment variables for Confluence API.")
 
 
@@ -53,4 +53,6 @@ class ConfluenceAPI:
     
 if __name__ == "__main__":
     confluence_api = ConfluenceAPI()
-    confluence_api.upsert_pages(space_name = 'enhanced-llm-retrieval')
+    # confluence_api.upsert_pages(space_name = 'enhanced-llm-retrieval')
+
+
