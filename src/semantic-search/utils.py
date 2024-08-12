@@ -13,12 +13,6 @@ def load_env_variable(var_name):
         raise EnvironmentError(f"Missing environment variable: {var_name}")
     return value
 
-def convert_utc_to_local(utc_time_str, timezone='America/Chicago'):
-    utc_time = datetime.strptime(utc_time_str, "%Y-%m-%dT%H:%M:%S.%fZ")
-    local_timezone = pytz.timezone(timezone)
-    local_time = utc_time.replace(tzinfo=pytz.utc).astimezone(local_timezone)
-    return local_time.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
-
 def make_request(url, auth, params=None, timeout=10):
     response = requests.get(url, auth=auth, params=params, timeout=timeout)
     return response.json()

@@ -34,3 +34,8 @@ class Database:
     def db_search(self, query_vector):
         index = self.pc.Index(self.index_name)
         return index.query(vector=query_vector, top_k=3)
+
+
+if __name__ == "__main__":
+    test = Database()
+    print(test.get_time('33409'))

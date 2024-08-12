@@ -1,4 +1,4 @@
-from utils import load_env_variable, make_request, convert_utc_to_local, initialize_auth
+from utils import load_env_variable, make_request, initialize_auth
 
 class ConfluenceAPI:
     def __init__(self):
@@ -34,4 +34,8 @@ class ConfluenceAPI:
     def get_time(self, page_id):
         url = f"{self.api_url}/pages/{page_id}"
         data = make_request(url, self.auth, params={'include-version': 'True'})
-        return convert_utc_to_local(data['version']['createdAt'])
+        return data['version']['createdAt']
+
+if __name__ == "__main__":
+    test = ConfluenceAPI()
+    print(test.get_time('33409'))

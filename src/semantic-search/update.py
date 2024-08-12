@@ -1,9 +1,10 @@
-import asyncio
+import time
 import database
 import confluence
 import embed
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timezone
+import pytz
 
 class UpdateDatabase:
     def __init__(self):
@@ -17,12 +18,12 @@ class UpdateDatabase:
         text = soup.get_text(separator=" ")
         return text 
 
-    async def update_page(self, page_id, name):
+    def update_page(self, page_id, name):
         text = self.get_page_data(page_id)
         vector = embed.embed_text(self.tokenizer, self.model, text)
-        current_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+        current_time = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+        print(current_time)
         self.db.upsert_page(page_id, vector, current_time, name)
-
 
     def load_all(self):
         space_id = self.confluence_api.get_space_id()
@@ -30,7 +31,7 @@ class UpdateDatabase:
         for name, page_id in pages.items():
             self.update_page(page_id, name)
 
-    async def periodic_update(self):
+    def periodic_update(self):
         while True:
             space_id = self.confluence_api.get_space_id()
             pages = self.confluence_api.get_page_ids(space_id)
@@ -40,9 +41,10 @@ class UpdateDatabase:
                 vector_db_time = datetime.strptime(self.db.get_time(page_id), "%Y-%m-%dT%H:%M:%S.%f%z")
 
                 if confluence_time > vector_db_time:
-                    await self.update_page(page_id, name)
-                    
-            await asyncio.sleep(60)
+                    print(f"Changed this ID {page_id}")
+                    self.update_page(page_id, name)
+            
+            time.sleep(30)
 
 
 if __name__ == "__main__":
