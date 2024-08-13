@@ -1,7 +1,7 @@
 import time
-import database
-import confluence
-import embed
+from semantic_search import database
+from semantic_search import confluence
+from semantic_search import embed
 from bs4 import BeautifulSoup
 from datetime import datetime, timezone
 

@@ -1,6 +1,6 @@
-import confluence
-import database
-import embed
+from semantic_search import confluence
+from semantic_search import database
+from semantic_search import embed
 
 class SemanticSearch:
     def __init__(self):

@@ -1,4 +1,4 @@
-from utils import load_env_variable, make_request, initialize_auth
+from semantic_search.utils import load_env_variable, make_request, initialize_auth
 
 class ConfluenceAPI:
     def __init__(self):

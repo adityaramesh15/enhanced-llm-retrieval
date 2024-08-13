@@ -1,5 +1,5 @@
 import pinecone
-from utils import load_env_variable
+from semantic_search.utils import load_env_variable
 
 class Database:
     def __init__(self):
