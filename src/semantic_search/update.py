@@ -4,7 +4,6 @@ import confluence
 import embed
 from bs4 import BeautifulSoup
 from datetime import datetime, timezone
-import pytz
 
 class UpdateDatabase:
     def __init__(self):
@@ -22,7 +21,6 @@ class UpdateDatabase:
         text = self.get_page_data(page_id)
         vector = embed.embed_text(self.tokenizer, self.model, text)
         current_time = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f%z')
-        print(current_time)
         self.db.upsert_page(page_id, vector, current_time, name)
 
     def load_all(self):
@@ -41,7 +39,7 @@ class UpdateDatabase:
                 vector_db_time = datetime.strptime(self.db.get_time(page_id), "%Y-%m-%dT%H:%M:%S.%f%z")
 
                 if confluence_time > vector_db_time:
-                    print(f"Changed this ID {page_id}")
+                    print(f"Updated this ID {page_id} in Pinecone Database")
                     self.update_page(page_id, name)
             
             time.sleep(30)

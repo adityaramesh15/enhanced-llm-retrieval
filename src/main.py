@@ -1,5 +1,5 @@
-from search import SemanticSearch
-from update import UpdateDatabase
+from semantic_search.search import SemanticSearch
+from semantic_search.update import UpdateDatabase
 from multiprocessing import Process
 import os
 
@@ -19,7 +19,6 @@ if __name__ == "__main__":
     proc.start()
 
     query = "Can you drink alcohol on campus?"
-
     print(s.search(query))
     
     # complete the processes
