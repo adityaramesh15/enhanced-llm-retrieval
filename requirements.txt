@@ -1,9 +1,11 @@
 transformers
 torch
 pinecone-client
+pinecone-text
 requests
 typing-extensions==4.5.0
 python-dotenv
 beautifulsoup4
 numpy==1.26.0
 pytz
+nltk==3.8.1

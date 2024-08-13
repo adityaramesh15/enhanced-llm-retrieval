@@ -1,7 +1,7 @@
 import time
-from semantic_search import database
-from semantic_search import confluence
-from semantic_search import embed
+from hybrid_search import database
+from hybrid_search import confluence
+from hybrid_search import embed
 from bs4 import BeautifulSoup
 from datetime import datetime, timezone
 
@@ -9,7 +9,7 @@ class UpdateDatabase:
     def __init__(self):
         self.db = database.Database()
         self.confluence_api = confluence.ConfluenceAPI()
-        self.tokenizer, self.model = embed.initialize()
+        self.tokenizer, self.dense_model, self.sparse_model = embed.initialize()
 
     def get_page_data(self, page_id):
         html_data = self.confluence_api.get_content(page_id)
@@ -19,9 +19,9 @@ class UpdateDatabase:
 
     def update_page(self, page_id, name):
         text = self.get_page_data(page_id)
-        vector = embed.embed_text(self.tokenizer, self.model, text)
+        dense, sparse = embed.embed_text(self.tokenizer, self.dense_model, self.sparse_model, text)
         current_time = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f%z')
-        self.db.upsert_page(page_id, vector, current_time, name)
+        self.db.upsert_page(page_id, dense, sparse, current_time, name)
 
     def load_all(self):
         space_id = self.confluence_api.get_space_id()
