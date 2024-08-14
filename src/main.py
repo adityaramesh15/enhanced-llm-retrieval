@@ -18,7 +18,7 @@ if __name__ == "__main__":
     procs.append(proc)
     proc.start()
 
-    query = "What is the policy for leave of ansence do to personal reasons?"
+    query = "What is the policy for leave of absence do to personal reasons?"
     print()
     print(s.search(query))
     

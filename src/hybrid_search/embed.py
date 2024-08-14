@@ -3,8 +3,8 @@ from pinecone_text.sparse import BM25Encoder
 import torch
 
 def initialize():
-    tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-    dense_model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+    tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-mpnet-base-v2")
+    dense_model = AutoModel.from_pretrained("sentence-transformers/all-mpnet-base-v2")
     sparse_model = BM25Encoder().default()
     return tokenizer, dense_model, sparse_model
 

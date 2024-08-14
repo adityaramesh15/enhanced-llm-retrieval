@@ -1,6 +1,4 @@
 import os
-import pytz
-from datetime import datetime
 from dotenv import load_dotenv
 import requests
 from requests.auth import HTTPBasicAuth

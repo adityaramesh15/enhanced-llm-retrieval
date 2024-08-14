@@ -10,7 +10,7 @@ class Database:
     def startup(self):
         if self.index_name not in self.pc.list_indexes().names():
             self.pc.create_index(
-                name=self.index_name, dimensions=384, metric='dotproduct',
+                name=self.index_name, dimensions=768, metric='dotproduct',
                 spec=pinecone.ServerlessSpec(cloud="aws", region="us-east-1"))
         self.index = self.pc.Index(self.index_name)
 
