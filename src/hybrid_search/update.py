@@ -9,7 +9,7 @@ class UpdateDatabase:
     def __init__(self):
         self.db = database.Database()
         self.confluence_api = confluence.ConfluenceAPI()
-        self.tokenizer, self.dense_model, self.sparse_model = embed.initialize()
+        self.embed = embed.Embed()
 
     def get_page_data(self, page_id):
         html_data = self.confluence_api.get_content(page_id)
@@ -19,7 +19,7 @@ class UpdateDatabase:
 
     def update_page(self, page_id, name):
         text = self.get_page_data(page_id)
-        dense, sparse = embed.embed_text(self.tokenizer, self.dense_model, self.sparse_model, text)
+        dense, sparse = self.embed.embed_text(text)
         current_time = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f%z')
         self.db.upsert_page(page_id, dense, sparse, current_time, name)
 

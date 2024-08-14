@@ -19,3 +19,13 @@ def initialize_auth():
     username = load_env_variable("CONFLUENCE_USERNAME")
     api_key = load_env_variable("CONFLUENCE_API_KEY")
     return HTTPBasicAuth(username, api_key)
+
+def singleton(cls):
+    instances = {}
+
+    def get_instances(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    
+    return get_instances

@@ -1,5 +1,6 @@
-from hybrid_search.utils import load_env_variable, make_request, initialize_auth
+from hybrid_search.utils import load_env_variable, make_request, initialize_auth, singleton
 
+@singleton
 class ConfluenceAPI:
     def __init__(self):
         self.api_url = load_env_variable("CONFLUENCE_URL")
