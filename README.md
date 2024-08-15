@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project serves as a privacy-safe business productivity tool by using a company's Confluence Pages to enhance contextualized responses from LLMs. Usinga Retrieval-Augmented Generation (RAG) system and a locally hosted `Llama 3.1 8B` model through `Ollama`, the system utilized hybrid search (semantic and lexical) with powerful generative capabilities to deliver relevant and contextually aware responses by retrieving pertinent documents and integrating them into the model's generation process.
+This project serves as a privacy-focused business productivity tool, using a company's Confluence Pages to enhance contextualized responses from LLMs. Using Retrieval-Augmented Generation (RAG) system and a locally hosted `Llama 3.1 8B` model through `Ollama`, the system utilized hybrid search (semantic and lexical) with powerful generative capabilities to deliver relevant and contextually aware responses by retrieving pertinent documents and integrating them into the model's generation process.
 
 ### Key Features
 
