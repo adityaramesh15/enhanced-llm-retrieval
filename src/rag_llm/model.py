@@ -1,17 +1,12 @@
 import ollama
-import os
-from dotenv import load_dotenv
+from hybrid_search.utils import load_env_variable, singleton
 
-
+@singleton
 class Model:
     def __init__(self):
-        load_dotenv()
-        self.model = os.getenv('OLLAMA_MODEL')
-        self.client = ollama.Client(base_url="http://localhost:11414")
-
-    def initialize_model(self):
-        self.client.load_model(self.model)
+        self.model =load_env_variable('OLLAMA_MODEL')
+        self.client = ollama.Client()
     
-    def get_response(self, input, model):
-        response = self.client.complete(prompt=input, model=model)
+    def get_response(self, input):
+        response = self.client.generate(prompt=input, model=self.model)
         return response
