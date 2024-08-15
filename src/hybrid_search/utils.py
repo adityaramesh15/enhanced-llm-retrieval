@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import requests
 from requests.auth import HTTPBasicAuth
+from bs4 import BeautifulSoup
 
 load_dotenv()
 
@@ -19,6 +20,11 @@ def initialize_auth():
     username = load_env_variable("CONFLUENCE_USERNAME")
     api_key = load_env_variable("CONFLUENCE_API_KEY")
     return HTTPBasicAuth(username, api_key)
+
+def html_to_text(html_data):
+        soup = BeautifulSoup(html_data, 'html.parser')
+        text = soup.get_text(separator=" ")
+        return text 
 
 def singleton(cls):
     instances = {}
