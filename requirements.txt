@@ -10,3 +10,4 @@ numpy==1.26.0
 pytz
 nltk==3.8.1
 ollama
+redis

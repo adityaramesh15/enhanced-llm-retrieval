@@ -7,6 +7,6 @@ class Model:
         self.model =load_env_variable('OLLAMA_MODEL')
         self.client = ollama.Client()
     
-    def get_response(self, input):
-        response = self.client.generate(prompt=input, model=self.model)
+    def get_response(self, messages):
+        response = self.client.chat(model = self.model, messages = messages)
         return response

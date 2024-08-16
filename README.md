@@ -70,7 +70,9 @@ Before installing and running the project, ensure you have the following:
 
 
 ### Running
-Coming Soon!
+1. 
+
+2. 
 
 ## Usage
 Coming Soon!
