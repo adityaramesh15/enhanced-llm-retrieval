@@ -20,17 +20,12 @@ class Database:
        index = self.pc.Index(self.index_name)
        index.delete(delete_all=True)
 
-    def get_time(self, page_id):
-        index = self.pc.Index(self.index_name)
-        result = index.fetch([page_id])
-        return result['vectors'][page_id]['metadata']['time']
-
-    def upsert_page(self, page_id, dense_vector, sparse_vector, time, name):
+    def upsert_page(self, page_id, dense_vector, sparse_vector, text):
         index = self.pc.Index(self.index_name)
         index.upsert(vectors=[{
             "id": page_id,
             "values": dense_vector,
-            "metadata": {'time': time, 'name': name},
+            "metadata": {'content': text},
             'sparse_values': sparse_vector
         }])
 
@@ -40,7 +35,11 @@ class Database:
                            sparse_vector = sparse_vector,
                            top_k=3)
 
+    def get_text(self, id):
+        index = self.pc.Index(self.index_name)
+        result = index.fetch(ids = [id])
+        return result['vectors'][id]['metadata']['content']
 
-if __name__ == "__main__":
-    test = Database()
-    # print(test.get_time('33409'))
+# if __name__ == "__main__":
+#     test = Database()
+#     print(test.get_text('65575-2'))

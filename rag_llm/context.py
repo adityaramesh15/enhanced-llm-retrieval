@@ -24,4 +24,3 @@ class Redis:
     
     def clear_conversation(self, session_id):
         self.redis.delete(session_id)
-
