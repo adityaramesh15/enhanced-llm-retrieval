@@ -1,5 +1,5 @@
 transformers
-torch
+sentence-transformers
 pinecone-client
 pinecone-text
 requests
@@ -11,3 +11,5 @@ pytz
 nltk==3.8.1
 ollama
 redis
+langchain-experimental
+langchain-huggingface

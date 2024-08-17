@@ -1,19 +1,18 @@
-from hybrid_search.confluence import ConfluenceAPI
-from hybrid_search.utils import html_to_text, singleton
+from hybrid_search.database import Database
+from hybrid_search.utils import singleton
 
 @singleton
 class RAG:
     def __init__(self):
-        self.confluence = ConfluenceAPI()
-        
+        self.db = Database()
+
+    #TODO change to grab text metadata from Pinecone Chunks    
     def get_documents(self, results):
         documents = []
         matches = results['matches']
         for match in matches:
             id = match['id']
-            html_data = self.confluence.get_content(id)
-            documents.append(html_to_text(html_data))
-        
+            documents.append(self.db.get_text(id))
         return documents
 
     def create_prompt(self, query, documents):
