@@ -6,7 +6,6 @@ class RAG:
     def __init__(self):
         self.db = Database()
 
-    #TODO change to grab text metadata from Pinecone Chunks    
     def get_documents(self, results):
         documents = []
         matches = results['matches']
