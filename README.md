@@ -11,6 +11,7 @@ This project is designed as a productivity tool that integrates a company's Conf
 - **Hybrid Search Mechanism**: Combines lexical search using sparse vector embeddings and semantic search with dense vector embeddings powered by the `all-mpnet-base-v2` model.
 - **Seamless Confluence Integration**: Leverages the Confluence API to retrieve documents, enriching the model's knowledge base.
 - **Efficient Query Processing**: Implements a singleton pattern to avoid redundant re-embedding, minimizing latency and accelerating response times.
+- **Real-Time Document Updates**: Supports a daemon function that automatically synchronizes the search index with any modifications made to Confluence documents, ensuring up-to-date retrieval.
 
 ## Project Structure
 ```
@@ -53,7 +54,7 @@ Before installing and running the project, ensure you have the following:
 - Required Python packages (refer to `requirements.txt`)
 - Pinecone DB instance with an API key
 - Confluence Space and API Key
-- Ollama
+- Ollama Client
 
 ## Getting Started
 
@@ -71,12 +72,26 @@ Before installing and running the project, ensure you have the following:
 
 ### Running the Application
 
-1. **To Be Added**  
-2. **To Be Added**
+1. **Start Redis**  
+   Start the Redis server to handle message streaming for conversations.
 
-## Usage
+   ```bash
+   redis-server
+   ```
 
-Details Coming Soon!
+2. **Start Ollama**  
+   Initialize the Ollama client to host the Llama 3.1 model locally.
+
+   ```bash
+   ollama start
+   ```
+
+3. **Run `main.py`**  
+   Launch the main application script.
+
+   ```bash
+   python3 main.py
+   ```
 
 ## Troubleshooting
 
@@ -84,14 +99,19 @@ If you encounter any issues, please check the following:
 
 - Ensure all dependencies are properly installed.
 - Verify API keys and configurations for external services.
+- Check if the Redis server and Ollama client are running correctly.
 
 ## Limitations
 
-Details Coming Soon!
+- **Scalability**: The current implementation is optimized for small to medium-sized datasets. Performance may degrade with very large Confluence Spaces or extensive document collections.
+- **Dependency on Confluence API**: The integration heavily relies on the Confluence API. Any changes to the API or service downtime could impact functionality.
+- **Local Model Hosting**: Hosting the Llama 3.1 model locally may require significant computational resources, depending on the usage scale.
 
 ## Future Plans
-
-Details Coming Soon!
+- **Scalability Improvements**: Enhance the system architecture to support larger datasets and improve response times for extensive document collections.
+- **Enhanced Search Features**: Integrate additional search capabilities, such as advanced filtering and result ranking, to improve the precision of document retrieval.
+- **User Interface**: Develop a user-friendly front-end interface for better accessibility and usability of the system.
+- **Cloud Hosting**: Explore cloud-based hosting options for the Llama 3.1 model to reduce local resource dependency and increase scalability.
 
 ## Contribution Guidelines
 
