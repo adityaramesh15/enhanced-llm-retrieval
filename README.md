@@ -68,7 +68,29 @@ Before installing and running the project, ensure you have the following:
    ```
 
 2. **Configuration**  
-   Set up the necessary environment variables and configurations, including API keys for Pinecone and Confluence.
+   Set up the necessary environment variables in a `.env` file. This file should be created in the root directory of your project. The `.env` file should include the following variables:
+
+   ```plaintext
+   # Pinecone API Configuration
+   PINECONE_API_KEY=your_pinecone_api_key
+   PINECONE_INDEX=your_pinecone_index
+
+   # Confluence API Configuration
+   CONFLUENCE_API_KEY=your_confluence_api_key
+   CONFLUENCE_URL=https://your_confluence_instance.atlassian.net
+   CONFLUENCE_USERNAME=your_confluence_username
+   CONFLUENCE_SPACE_NAME=your_confluence_space_name
+
+   # Tokenizer Configuration
+   TOKENIZERS_PARALLELISM=true
+
+   # Ollama Model Configuration
+   OLLAMA_MODEL=Meta-Llama-3.1-8B
+   ```
+
+   Replace the placeholder text (`your_pinecone_api_key`, `your_confluence_api_key`, etc.) with your actual configuration values. Save this file as `.env` in the root directory of the project.
+
+   **Note:** Ensure that your `.env` file is included in your `.gitignore` file to prevent sensitive information from being committed to your version control system.
 
 ### Running the Application
 
@@ -108,6 +130,7 @@ If you encounter any issues, please check the following:
 - **Local Model Hosting**: Hosting the Llama 3.1 model locally may require significant computational resources, depending on the usage scale.
 
 ## Future Plans
+
 - **Scalability Improvements**: Enhance the system architecture to support larger datasets and improve response times for extensive document collections.
 - **Enhanced Search Features**: Integrate additional search capabilities, such as advanced filtering and result ranking, to improve the precision of document retrieval.
 - **User Interface**: Develop a user-friendly front-end interface for better accessibility and usability of the system.
